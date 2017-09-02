@@ -1,24 +1,25 @@
 
 $(function(){
-  var grid, snake, food, bumpWall, start, gameOver, newHead, speed_now, score, level;
+  var grid, snake, food, bumpWall, start, gameOver, newHead, speed_now, score, level, total_rows, total_cols, timer;
   init();
   $('body').on('keydown', function(event){
     pressKey(event);
-   if (!start) {
+    if (!start) {
       timeout(speed_now);
       start = true;
+      $('.instructions').hide();
+    }
+    if (gameOver) {
+      clearTimeout(timer)
+      init();
     }
   });
-  $('.restart').on('click', function() {
-    init();
-  });
-
 
   function init(){
     grid = [];
     snake = {
-              position: [[10,10]],
-              direction: 0
+              position: [[10,12], [10, 11], [10,10]],
+              direction: 39
             };
     food = {
               position: [0,0],
@@ -34,12 +35,14 @@ $(function(){
     start = false;
     gameOver = false;
     newHead = [19,19];
-    speed_now = 100;
+    speed_now = 200;
     score = 0;
     level = 1;
-    initGrid(20);
+    total_rows = 20;
+    total_cols = 30;
+    initGrid(total_rows, total_cols);
     makeGrid();
-    updateGrid(bumpWall);
+    updateGrid();
     $('.score').text(score);
     $('.level').text(level);
     $('.gameover').hide();
@@ -47,8 +50,8 @@ $(function(){
     food.new();
     }
 
-  function initGrid(n) {
-    for(var i =0; i < n; i++) {
+  function initGrid(m, n) {
+    for(var i =0; i < m; i++) {
      var row = [];
       for(var j =0; j < n; j++) {
       row[j] = " ";
@@ -123,7 +126,7 @@ $(function(){
           gameOver = true;
         }
       }
-      if (newHead[0] < 0 || newHead[1] < 0 || newHead[0] >= 20 || newHead[1] >= 20) {
+      if (newHead[0] < 0 || newHead[1] < 0 || newHead[0] >= total_rows || newHead[1] >= total_cols) {
           updateGrid(true);
           gameOver = true;
       }
@@ -131,14 +134,14 @@ $(function(){
 
     function speedUp(){
       if (score % 5 == 0) {
-        speed_now *= 0.5;
+        speed_now *= 0.8;
         level += 1;
         $('.level').text(level);
       }
     }
 
     function timeout(speed) {
-      setTimeout(function () {
+      timer = setTimeout(function () {
     //    console.log(newHead, gameOver())
         if (!gameOver) {
           turn();

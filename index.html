@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -9,16 +10,14 @@
 </head>
 <body>
 <div>
-<div class="restart">
-  Restart
-</div>
-<p>
- Score: <span class="score">0</span>; Level: <span class="level">1</span>
- <span class="gameover">
-    Game Over
-  </span>
-</p>
 
-<div class="box"></div>
+  <div class="box_container">
+    <div class="title">Snake</div>
+    <div class="box"></div>
+    <div class="score">0</div>
+  </div>
+  <div class="gameover">Press any key to restart</div>
+  <div class="instructions">Use arrow keys to move</div>
+
 </div>
 </body>

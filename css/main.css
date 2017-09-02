@@ -1,12 +1,62 @@
+@font-face {
+ font-family:'digital-clock-font';
+ src: url('digital-7.ttf');
+}
+
+
+body {
+  background-color: #8594ad;
+}
+
+
+.box_container {
+  margin: 100px auto 0px auto;
+  position: relative;
+  width: 610px;
+  height: 400px;
+}
+
+.title {
+  position: absolute;
+  left: 10px;
+  top: -20px;
+  font-family: 'Lato', sans-serif;
+  color: #adc9f7;
+}
+
+
+.score {
+  font-family:'digital-clock-font';
+  position: absolute;
+  right: -70px;
+  top: -20px;
+  height: 50px;
+  width: 50px;
+  color: white;
+  font-size: 36px;
+}
+
+
 .box {
-  border: 3px solid black;
   display: table;
   collapse-border: collapse;
+  margin: 0px auto;
+  background-color: white;
+}
+
+.gameover, .instructions {
+  margin: auto;
+  color: #adc9f7;
+  font-size: 18px;
+  text-align: center;
+}
+
+.gameover {
+  display: none;
 }
 
 .pixel {
   float: left;
-  border: 1px solid grey;
   height: 20px;
   width: 20px;
   margin: 0px 0px !important;
@@ -20,20 +70,16 @@
 }
 
 .active {
-  background-color: black;
+  background-color: #adc9f7;
 }
 
 .food {
-  background-color: green;
-}
-
-.gameover {
-  margin-left: 300px;
-  display: none;
+  background-color: white;
+  border: 1px solid #adc9f7;
 }
 
 .overlap {
-  background-color: red;
+  background-color: #3b475b;
 }
 
 .restart {
