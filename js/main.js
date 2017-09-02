@@ -1,10 +1,10 @@
 
-$(function(){
-  var grid, snake, food, bumpWall, start, gameOver, newHead, speed_now, score, level, total_rows, total_cols, timer;
+$(function() {
+  var grid, snake, food, bumpWall, start, gameOver, newHead, speed_now, score, level, total_rows, total_cols, timer, valid_dirs, invalid_dir_pairs;
   init();
   $('body').on('keydown', function(event){
     pressKey(event);
-    if (!start) {
+    if (!start && $.inArray(event.which, valid_dirs) != -1 ) {
       timeout(speed_now);
       start = true;
       $('.instructions').hide();
@@ -16,6 +16,8 @@ $(function(){
   });
 
   function init(){
+    invalid_dir_pairs = [[37,39,65,68],[38,40,83,87]]
+    valid_dirs = [37,39,38,40,65,68,83,87]
     grid = [];
     snake = {
               position: [[10,12], [10, 11], [10,10]],
@@ -82,9 +84,20 @@ $(function(){
     function pressKey(event){
       var newDir = event.which,
           oldDir = snake.direction;
-      if (newDir - oldDir != 2 &&  newDir - oldDir != -2) {
+      if (validDir(newDir, oldDir)) {
         snake.direction = event.which;
       }
+    }
+
+    function validDir(newDir, oldDir) {
+      var out = true
+      if ($.inArray(newDir, valid_dirs) == -1) {out = false}
+      invalid_dir_pairs.forEach(function(dir_pair) {
+        if ($.inArray(newDir, dir_pair) != -1 && $.inArray(oldDir, dir_pair) != -1) {
+          out = false
+        }
+      })
+      return out
     }
 
 
@@ -92,16 +105,20 @@ $(function(){
       var headRow = snake.position[0][0],
           headCol = snake.position[0][1];
       switch (snake.direction) {
-      case 37: //left
+      case 37:
+      case 65: //left
         newHead = [headRow, headCol - 1];
         break;
-      case 38: //up
+      case 38:
+      case 87: //up
         newHead = [headRow - 1, headCol];
         break;
-      case 39: //right
+      case 39:
+      case 68: //right
         newHead = [headRow, headCol + 1];
         break;
-      case 40: //down
+      case 40:
+      case 83: //down
         newHead = [headRow + 1, headCol];
         break;
       }
